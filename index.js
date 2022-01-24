@@ -19,9 +19,7 @@ const pubsub = new Pubsub({ blockchain, transactionPool, wallet });
 const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
 const DEFAULT_PORT = 3000;
-const ROOT_NODE_ADDRESS = isDevelopment ?
- `http://localhost:${DEFAULT_PORT}`:
- 'https://crypto-chain613.herokuapp.com';
+const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 setTimeout(() => { pubsub.broadcastChain() }, 1000);
 
