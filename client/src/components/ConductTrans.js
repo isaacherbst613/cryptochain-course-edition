@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import history from '../history';
 
 export default class conductTrans extends Component {
-    state = { recipient: '', amount: 0 };
+    state = { recipient: '', amount: 0, knownAddresses: [] };
+
+    componentDidMount() {
+        fetch(`${document.location.origin}/api/known-addresses`)
+        .then(res => res.json())
+        .then(data => this.setState({ knownAddresses: data }));
+    }
 
     updateRecipient = (e) => {
         this.setState({ recipient: e.target.value });
@@ -36,6 +42,11 @@ export default class conductTrans extends Component {
                 <Link to='/'>Home</Link>
                 <br />
                 <h3>Conduct Transaction</h3>
+                <br/>
+                <h3>Known addresses</h3>
+                {this.state.knownAddresses.map(address => (
+                    <div id="add" key={address}>{address}</div>
+                ))}
                 <FormGroup>
                     <FormControl input='text' placeholder='send to' value={this.state.recipient} required onChange={this.updateRecipient} />
                 </FormGroup>
